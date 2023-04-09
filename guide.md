@@ -187,6 +187,7 @@ When the component is rendered for the first time, the function is executed and 
 - 4:30:00 - Deployment of the app.
 - 4:30:50 - After creating your repo on GitHub, type `git init` to initialize this as a git folder. Create a `.gitignore` file in the `server` folder. Then, in the root directory, type `git add .`, followed by `git commit -m ""`.
   Afterwards, type `git branch -M main` to create a main branch, then add a remote origin using the following: `git remote add origin https://github.com/SphericalSilver/refine_webapp.git`
+  - 4:32:00 - Using render.com to deploy backend.
 
 ## Refine hooks
 
