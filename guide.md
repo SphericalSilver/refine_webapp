@@ -185,18 +185,111 @@ When the component is rendered for the first time, the function is executed and 
 ### Deployment.
 
 - 4:30:00 - Deployment of the app.
-- 4:30:50 - After creating your repo on GitHub, type `git init` to initialize this as a git folder. Create a `.gitignore` file
+- 4:30:50 - After creating your repo on GitHub, type `git init` to initialize this as a git folder. Create a `.gitignore` file in the `server` folder. Then, in the root directory, type `git add .`, followed by `git commit -m ""`.
+  Afterwards, type `git branch -M main` to create a main branch, then add a remote origin using the following: `git remote add origin https://github.com/SphericalSilver/refine_webapp.git`
 
 ## Refine hooks
 
 - `useTable`
 - `useNavigate`
+
+This hook comes from the react-router library, which Refine uses for handling routing and navigation. It returns a function that allows you to navigate to different routes in your application programmatically.
+
+Example:
+
+```
+import { useNavigate } from 'react-router-dom';
+
+function MyComponent() {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/some-route');
+  };
+
+  return <button onClick={handleClick}>Go to some route</button>;
+}
+```
+
 - `useGetIdentity`
+
+This hook retrieves the current user's identity, which is useful for implementing authentication and authorization logic in your application. It returns an object containing the user's identity data.
+
+Example:
+
+```
+import { useGetIdentity } from '@pankod/refine';
+
+function MyComponent() {
+  const { data: identity } = useGetIdentity();
+
+  return <div>User ID: {identity?.id}</div>;
+}
+```
+
 - `useDelete`
+
+useDelete: This hook allows you to delete a single record by its ID. It returns a function that you can call with the record ID to perform the deletion, along with the mutation state.
+
+Example:
+
+```
+import { useDelete } from '@pankod/refine';
+
+function MyComponent() {
+  const { mutate: deleteRecord, isLoading } = useDelete({ resource: 'posts' });
+
+  const handleDelete = (id) => {
+    deleteRecord(id);
+  };
+
+  return <button onClick={() => handleDelete(someId)} disabled={isLoading}>Delete record</button>;
+}
+```
+
 - `useShow`
+
+useShow: This hook fetches a single record by its ID. It returns the record data and the fetching state.
+
+Example:
+
+```
+import { useShow } from '@pankod/refine';
+
+function MyComponent() {
+  const { data: record } = useShow({ resource: 'posts', id: someId });
+
+  return <div>Post title: {record?.title}</div>;
+}
+```
+
 - `useForm`
 - `useList`
+
+useList: This hook fetches a list of records. It returns the records data, pagination information, and the fetching state.
+
+Example:
+
+```
+import { useList } from '@pankod/refine';
+
+function MyComponent() {
+  const { data: records } = useList({ resource: 'posts' });
+
+  return (
+    <ul>
+      {records?.map((record) => (
+        <li key={record.id}>{record.title}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
 - `useOne`
+
+This hook is an alias for useShow. It fetches a single record by its ID and returns the record data and the fetching state. The usage is the same as useShow.
+
 - `useParams`
 
 How refine works
